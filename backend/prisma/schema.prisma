@@ -1,0 +1,205 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  MOD
+  ADMIN
+}
+
+enum Mode {
+  SOLO
+  FAMILY
+  COUPLE
+  GLOBAL
+}
+
+enum ReactionType {
+  HEART
+  THUMBS
+  LAUGH
+  FLAME
+}
+
+enum MatchStatus {
+  LOBBY
+  LIVE
+  SCORED
+  ENDED
+}
+
+model User {
+  id            String   @id @default(cuid())
+  authProvider  String
+  email         String?  @unique
+  phone         String?
+  displayName   String
+  avatarUrl     String?
+  dob           DateTime?
+  role          Role      @default(USER)
+  parentId      String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  profiles      Profile[]
+  families      FamilyMember[]
+  devices       Device[]
+  subscriptions Subscription[]
+}
+
+model Profile {
+  id          String   @id @default(cuid())
+  userId      String
+  mode        Mode
+  bio         String?
+  interests   String[]
+  locale      String   @default("en")
+  civilityElo Int      @default(1000)
+  debateElo   Int      @default(1000)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Family {
+  id        String         @id @default(cuid())
+  name      String
+  ownerId   String
+  createdAt DateTime       @default(now())
+
+  members   FamilyMember[]
+  invites   FamilyInvite[]
+}
+
+model FamilyMember {
+  id        String   @id @default(cuid())
+  familyId  String
+  userId    String
+  role      String
+  createdAt DateTime @default(now())
+
+  family Family @relation(fields: [familyId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model FamilyInvite {
+  id        String   @id @default(cuid())
+  familyId  String
+  code      String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  family Family @relation(fields: [familyId], references: [id])
+}
+
+model DebateMatch {
+  id           String            @id @default(cuid())
+  mode         Mode
+  topic        String
+  status       MatchStatus
+  roomId       String
+  hostUserId   String
+  startedAt    DateTime?
+  endedAt      DateTime?
+  aiScore      Int?
+  winnerUserId String?
+  createdAt    DateTime         @default(now())
+
+  rounds       DebateRound[]
+  reactions    Reaction[]
+  votes        Vote[]
+  participants MatchParticipant[]
+}
+
+model MatchParticipant {
+  id       String   @id @default(cuid())
+  matchId  String
+  userId   String
+  side     String?
+  joinedAt DateTime @default(now())
+
+  match DebateMatch @relation(fields: [matchId], references: [id])
+  user  User        @relation(fields: [userId], references: [id])
+}
+
+model DebateRound {
+  id         String   @id @default(cuid())
+  matchId    String
+  number     Int
+  speakerId  String
+  startedAt  DateTime
+  endedAt    DateTime?
+  transcript Json?
+
+  match DebateMatch @relation(fields: [matchId], references: [id])
+}
+
+model Reaction {
+  id       String       @id @default(cuid())
+  matchId  String
+  userId   String?
+  type     ReactionType
+  createdAt DateTime    @default(now())
+
+  match DebateMatch @relation(fields: [matchId], references: [id])
+  user  User?       @relation(fields: [userId], references: [id])
+}
+
+model Vote {
+  id        String   @id @default(cuid())
+  matchId   String
+  voterId   String?
+  forUserId String
+  createdAt DateTime @default(now())
+
+  match DebateMatch @relation(fields: [matchId], references: [id])
+  voter User?       @relation(fields: [voterId], references: [id])
+}
+
+model LeaderboardSnapshot {
+  id        String   @id @default(cuid())
+  scope     String
+  period    String
+  payload   Json
+  createdAt DateTime @default(now())
+}
+
+model Device {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String
+  platform  String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Subscription {
+  id          String   @id @default(cuid())
+  userId      String
+  provider    String
+  status      String
+  externalId  String
+  startedAt   DateTime @default(now())
+  renewedAt   DateTime?
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Tournament {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  startsAt    DateTime
+  endsAt      DateTime
+  bracket     Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
