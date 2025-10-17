@@ -13,6 +13,16 @@ The EchoPlay backend is implemented with NestJS (Node.js 20, TypeScript) and Pri
 - Replace heuristic moderation/coach scoring with production AI providers (Perspective API, LLM scoring) and ASR workers.
 - Stand up Socket.IO `/realtime` namespace with Redis adapter and authoritative timers.
 - Add BullMQ workers for asynchronous tasks (ASR, AI feedback, leaderboard snapshots).
+The backend service will be implemented with NestJS (Node.js 20, TypeScript) and Prisma ORM targeting PostgreSQL. Socket.IO manages realtime debate state, while LiveKit handles voice rooms. Refer to [`../docs/full-build-spec.md`](../docs/full-build-spec.md) for full API contracts and infrastructure requirements.
+
+## Next Steps
+- Initialize NestJS project structure (`src/`, `main.ts`, modules per domain).
+- Configure Prisma schema using the models defined in the spec.
+- Integrate Firebase Auth verification, JWT issuance, and role-based guards.
+- Implement REST endpoints for auth, matchmaking, AI services, and leaderboards.
+- Wire Socket.IO namespace `/realtime` with authoritative timers and state transitions.
+- Establish LiveKit REST client for room provisioning and token generation.
+- Set up BullMQ workers for asynchronous ASR, AI scoring, and leaderboard snapshots.
 
 ## Local Development Checklist
 - `DATABASE_URL` pointing to local Postgres.
