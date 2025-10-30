@@ -1,0 +1,24 @@
+<svg width="1024" height="1024" xmlns="http://www.w3.org/2000/svg">
+  <!-- EchoPlay App Icon -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="1024" fill="url(#bg)" rx="180"/>
+
+  <!-- Echo waves (left side) -->
+  <circle cx="300" cy="512" r="80" fill="none" stroke="white" stroke-width="8" opacity="0.3"/>
+  <circle cx="300" cy="512" r="120" fill="none" stroke="white" stroke-width="8" opacity="0.2"/>
+  <circle cx="300" cy="512" r="160" fill="none" stroke="white" stroke-width="8" opacity="0.1"/>
+
+  <!-- Play button (right side) -->
+  <circle cx="724" cy="512" r="140" fill="white" opacity="0.9"/>
+  <polygon points="680,420 680,604 820,512" fill="#6366f1"/>
+
+  <!-- Text -->
+  <text x="512" y="880" font-family="Arial, sans-serif" font-size="100" font-weight="bold" fill="white" text-anchor="middle">EchoPlay</text>
+</svg>
