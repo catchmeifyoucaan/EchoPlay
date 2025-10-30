@@ -11,6 +11,7 @@ import { MatchesModule } from './modules/matches/matches.module';
 import { ModerationModule } from './modules/moderation/moderation.module';
 import { PrismaModule } from './modules/prisma/prisma.module';
 import { ReactionsModule } from './modules/reactions/reactions.module';
+import { RealtimeModule } from './modules/realtime/realtime.module';
 import { TournamentsModule } from './modules/tournaments/tournaments.module';
 import { UsersModule } from './modules/users/users.module';
 
@@ -28,7 +29,8 @@ import { UsersModule } from './modules/users/users.module';
     ModerationModule,
     LeaderboardModule,
     TournamentsModule,
-    ReactionsModule
+    ReactionsModule,
+    RealtimeModule
   ]
 })
 export class AppModule {}
