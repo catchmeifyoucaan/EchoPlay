@@ -1,4 +1,4 @@
-import posthog from 'posthog-react-native';
+// Analytics stub - replace with actual PostHog integration when ready
 
 type AnalyticsEvent =
   | 'auth_login_success'
@@ -21,13 +21,13 @@ class Analytics {
     }
     const key = process.env.EXPO_PUBLIC_POSTHOG_KEY;
     if (!key) {
-      console.warn('PostHog key missing');
+      console.log('[Analytics] PostHog key missing - using stub mode');
+      this.initialized = true;
       return;
     }
-    posthog.init(key, {
-      apiHost: 'https://app.posthog.com',
-      captureApplicationLifecycleEvents: true
-    });
+    // TODO: Initialize PostHog when configured
+    // posthog.init(key, { apiHost: 'https://app.posthog.com' });
+    console.log('[Analytics] Initialized (stub mode)');
     this.initialized = true;
   }
 
@@ -35,14 +35,14 @@ class Analytics {
     if (!this.initialized) {
       return;
     }
-    posthog.identify(userId);
+    console.log('[Analytics] Identify:', userId);
   }
 
   capture(event: AnalyticsEvent, properties?: Record<string, unknown>) {
     if (!this.initialized) {
-      return;
+      this.init();
     }
-    posthog.capture(event, properties);
+    console.log('[Analytics]', event, properties);
   }
 }
 
