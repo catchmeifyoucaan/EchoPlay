@@ -51,6 +51,10 @@ coverage/
 .expo/
 .expo-shared/
 
+# Firebase credentials (keep templates only)
+GoogleService-Info.plist
+google-services.json
+
 # Temporary files
 *.tmp
 .temp/
