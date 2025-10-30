@@ -39,6 +39,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "prisma": "^5.12.1",
+    "socket.io-client": "^4.8.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.2"
   }
