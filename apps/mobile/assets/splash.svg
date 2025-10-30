@@ -1,0 +1,31 @@
+<svg width="1242" height="2436" xmlns="http://www.w3.org/2000/svg">
+  <!-- EchoPlay Splash Screen -->
+  <defs>
+    <linearGradient id="splashBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1242" height="2436" fill="url(#splashBg)"/>
+
+  <!-- Logo container -->
+  <g transform="translate(621, 1100)">
+    <!-- Echo waves -->
+    <circle cx="-150" cy="0" r="60" fill="none" stroke="white" stroke-width="6" opacity="0.3"/>
+    <circle cx="-150" cy="0" r="90" fill="none" stroke="white" stroke-width="6" opacity="0.2"/>
+    <circle cx="-150" cy="0" r="120" fill="none" stroke="white" stroke-width="6" opacity="0.1"/>
+
+    <!-- Play button -->
+    <circle cx="150" cy="0" r="100" fill="white" opacity="0.9"/>
+    <polygon points="120,-60 120,60 220,0" fill="#6366f1"/>
+  </g>
+
+  <!-- App name -->
+  <text x="621" y="1350" font-family="Arial, sans-serif" font-size="120" font-weight="bold" fill="white" text-anchor="middle">EchoPlay</text>
+  <text x="621" y="1450" font-family="Arial, sans-serif" font-size="50" fill="white" text-anchor="middle" opacity="0.8">Debate. Listen. Grow.</text>
+
+  <!-- Loading indicator position -->
+  <circle cx="621" cy="2100" r="30" fill="none" stroke="white" stroke-width="4" opacity="0.5"/>
+</svg>
